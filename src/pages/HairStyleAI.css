@@ -1,0 +1,1134 @@
+/* ============================================
+   AI Hair Style Recommendation Page
+   Premium dark theme matching BookSaloonz
+   ============================================ */
+
+/* Page Container */
+.hairstyle-ai-page {
+    min-height: 100vh;
+    background: transparent;
+    color: #f8fafc;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.hsai-hero {
+    position: relative;
+    text-align: center;
+    padding: clamp(6rem, 15vh, 10rem) 2rem 4rem;
+    overflow: hidden;
+}
+
+.hsai-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hsai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(45, 212, 191, 0.08);
+    color: #2dd4bf;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.hsai-hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+}
+
+.hsai-highlight {
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+.hsai-subtitle {
+    font-size: 1.15rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* Animated background orbs */
+.hsai-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.hsai-orb-1 {
+    width: 400px;
+    height: 400px;
+    background: #2dd4bf;
+    top: -100px;
+    left: -100px;
+    animation: orbFloat1 8s ease-in-out infinite;
+}
+
+.hsai-orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #0ea5e9;
+    top: 50px;
+    right: -80px;
+    animation: orbFloat2 10s ease-in-out infinite;
+}
+
+.hsai-orb-3 {
+    width: 250px;
+    height: 250px;
+    background: #8b5cf6;
+    bottom: -50px;
+    left: 30%;
+    animation: orbFloat3 12s ease-in-out infinite;
+}
+
+@keyframes orbFloat1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(30px, 40px);
+    }
+}
+
+@keyframes orbFloat2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-20px, 30px);
+    }
+}
+
+@keyframes orbFloat3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(20px, -30px);
+    }
+}
+
+/* ==========================================
+   UPLOAD SECTION
+   ========================================== */
+.hsai-upload-section {
+    padding: 0 2rem 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.hsai-upload-wrapper {
+    position: relative;
+}
+
+/* Drop Zone */
+.hsai-dropzone {
+    border: 2px dashed rgba(45, 212, 191, 0.25);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.hsai-dropzone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(45, 212, 191, 0.03), transparent 70%);
+    pointer-events: none;
+}
+
+.hsai-dropzone:hover {
+    border-color: rgba(45, 212, 191, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px rgba(45, 212, 191, 0.08);
+}
+
+.hsai-dropzone-active {
+    border-color: #2dd4bf !important;
+    background: rgba(45, 212, 191, 0.06) !important;
+    box-shadow: 0 0 40px rgba(45, 212, 191, 0.15) !important;
+}
+
+.hsai-file-input {
+    display: none;
+}
+
+.hsai-dropzone-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hsai-upload-icon-wrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, rgba(45, 212, 191, 0.1), rgba(14, 165, 233, 0.1));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2dd4bf;
+    border: 1px solid rgba(45, 212, 191, 0.15);
+}
+
+.hsai-dropzone h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #e2e8f0;
+}
+
+.hsai-dropzone p {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.hsai-upload-hint {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: #64748b;
+    background: rgba(30, 41, 59, 0.6);
+    padding: 6px 16px;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+}
+
+/* Action Buttons */
+.hsai-action-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hsai-camera-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 14px;
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    background: rgba(45, 212, 191, 0.08);
+    color: #2dd4bf;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-camera-btn:hover {
+    background: rgba(45, 212, 191, 0.15);
+    border-color: rgba(45, 212, 191, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(45, 212, 191, 0.12);
+}
+
+.hsai-analyze-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    color: #0b0f1a;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-analyze-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(45, 212, 191, 0.35);
+    filter: brightness(1.1);
+}
+
+.hsai-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(30, 41, 59, 0.5);
+    color: #94a3b8;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-reset-btn:hover {
+    background: rgba(30, 41, 59, 0.8);
+    color: #e2e8f0;
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+/* ==========================================
+   CAMERA VIEW
+   ========================================== */
+.hsai-camera-view {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #000;
+    border: 2px solid rgba(45, 212, 191, 0.3);
+}
+
+.hsai-camera-feed {
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+    transform: scaleX(-1);
+}
+
+.hsai-camera-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.hsai-face-guide {
+    width: 200px;
+    height: 260px;
+    border: 2px dashed rgba(45, 212, 191, 0.5);
+    border-radius: 50%;
+    animation: pulseGuide 2s ease-in-out infinite;
+}
+
+@keyframes pulseGuide {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+.hsai-camera-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.hsai-capture-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hsai-capture-ring {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b0f1a;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.hsai-capture-btn:hover .hsai-capture-ring {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.5);
+}
+
+.hsai-close-camera {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.8);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-close-camera:hover {
+    background: #ef4444;
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   IMAGE PREVIEW
+   ========================================== */
+.hsai-preview-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(45, 212, 191, 0.2);
+    background: #0f172a;
+}
+
+.hsai-preview-image-wrap {
+    position: relative;
+}
+
+.hsai-preview-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    display: block;
+    background: #0f172a;
+}
+
+.hsai-face-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.hsai-remove-image {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.hsai-remove-image:hover {
+    background: rgba(239, 68, 68, 0.3);
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   LOADING SECTION
+   ========================================== */
+.hsai-loading-section {
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.hsai-loading-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+
+.hsai-loader-ring {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hsai-spinner {
+    color: #2dd4bf;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hsai-loading-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.hsai-analysis-step {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    min-height: 24px;
+}
+
+.hsai-progress-bar {
+    height: 4px;
+    background: rgba(45, 212, 191, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.hsai-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2dd4bf, #0ea5e9);
+    border-radius: 4px;
+}
+
+/* ==========================================
+   ERROR SECTION
+   ========================================== */
+.hsai-error-section {
+    padding: 1rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.hsai-error-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-radius: 16px;
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.hsai-error-card h4 {
+    font-size: 0.9rem;
+    color: #fca5a5;
+    margin-bottom: 2px;
+}
+
+.hsai-error-card p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.hsai-error-card>button {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+}
+
+.hsai-error-card>button:hover {
+    color: #ef4444;
+}
+
+/* ==========================================
+   RESULTS SECTION
+   ========================================== */
+.hsai-results-section {
+    padding: 2rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Face Shape Card */
+.hsai-shape-card {
+    display: grid;
+    grid-template-columns: 1fr auto 120px;
+    align-items: center;
+    gap: 32px;
+    padding: 2.5rem 3rem;
+    border-radius: 32px;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 4rem;
+}
+
+.hsai-shape-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b0f1a;
+    flex-shrink: 0;
+}
+
+.hsai-shape-info {
+    flex: 1;
+}
+
+.hsai-shape-label {
+    font-size: 0.78rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.hsai-shape-name {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 0.2rem 0 0.4rem;
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hsai-shape-desc {
+    color: #94a3b8;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* Confidence Ring */
+.hsai-confidence {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.hsai-confidence-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.hsai-confidence-ring svg {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-90deg);
+}
+
+.hsai-ring-bg {
+    fill: none;
+    stroke: rgba(45, 212, 191, 0.1);
+    stroke-width: 6;
+}
+
+.hsai-ring-fill {
+    fill: none;
+    stroke: #2dd4bf;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dasharray 1s ease;
+}
+
+.hsai-confidence-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #2dd4bf;
+}
+
+.hsai-confidence-label {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Recommendations Header */
+.hsai-recommendations-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+    color: #e2e8f0;
+}
+
+.hsai-recommendations-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* Recommendations Grid */
+.hsai-recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 4rem;
+}
+
+/* Style Card */
+.hsai-style-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.hsai-style-card:hover {
+    border-color: rgba(45, 212, 191, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(45, 212, 191, 0.06);
+}
+
+.hsai-style-image-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.hsai-style-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hsai-style-card:hover .hsai-style-image {
+    transform: scale(1.08);
+}
+
+.hsai-style-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.hsai-style-number {
+    background: rgba(0, 0, 0, 0.6);
+    color: #2dd4bf;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+.hsai-style-content {
+    padding: 1.5rem;
+}
+
+.hsai-style-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: #f1f5f9;
+}
+
+.hsai-style-description {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.hsai-style-reason {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(45, 212, 191, 0.05);
+    border: 1px solid rgba(45, 212, 191, 0.08);
+    margin-bottom: 1.2rem;
+}
+
+.hsai-style-reason svg {
+    color: #2dd4bf;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.hsai-style-reason span {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* Book Button */
+.hsai-book-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #2dd4bf, #0ea5e9);
+    color: #0b0f1a;
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-book-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
+    filter: brightness(1.1);
+}
+
+.hsai-book-btn:active {
+    transform: translateY(0);
+}
+
+/* Disclaimer */
+.hsai-disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: rgba(251, 191, 36, 0.05);
+    border: 1px solid rgba(251, 191, 36, 0.1);
+    margin-bottom: 2rem;
+}
+
+.hsai-disclaimer svg {
+    color: #fbbf24;
+    flex-shrink: 0;
+}
+
+.hsai-disclaimer p {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* Try Again */
+.hsai-try-again {
+    text-align: center;
+}
+
+.hsai-retry-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border-radius: 14px;
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    background: rgba(45, 212, 191, 0.06);
+    color: #2dd4bf;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hsai-retry-btn:hover {
+    background: rgba(45, 212, 191, 0.12);
+    border-color: rgba(45, 212, 191, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(45, 212, 191, 0.1);
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 768px) {
+    .hsai-hero {
+        padding: 4rem 1.5rem 2rem;
+    }
+
+    .hsai-hero-content h1 {
+        font-size: 2.4rem;
+        letter-spacing: -1px;
+    }
+
+    .hsai-subtitle {
+        font-size: 1rem;
+    }
+
+    .hsai-upload-section {
+        padding: 0 1.5rem 2rem;
+    }
+
+    .hsai-dropzone {
+        padding: 3rem 1.5rem;
+    }
+
+    .hsai-upload-icon-wrap {
+        width: 64px;
+        height: 64px;
+    }
+
+    .hsai-upload-icon-wrap svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hsai-shape-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+    .hsai-shape-info {
+        order: 1;
+    }
+
+    .hsai-confidence {
+        order: 2;
+    }
+
+    .hsai-shape-icon {
+        order: 0;
+    }
+
+    .hsai-shape-name {
+        font-size: 1.6rem;
+    }
+
+    .hsai-recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hsai-results-section {
+        padding: 2rem 1.5rem 3rem;
+    }
+
+    .hsai-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hsai-action-row button {
+        justify-content: center;
+    }
+
+    .hsai-face-guide {
+        width: 150px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hsai-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hsai-badge {
+        font-size: 0.72rem;
+        padding: 6px 14px;
+    }
+
+    .hsai-dropzone {
+        padding: 2.5rem 1rem;
+    }
+
+    .hsai-dropzone h3 {
+        font-size: 1.15rem;
+    }
+
+    .hsai-loading-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .hsai-style-image-wrap {
+        height: 180px;
+    }
+}
+
+/* ==========================================
+   SCROLLBAR STYLING
+   ========================================== */
+.hairstyle-ai-page::-webkit-scrollbar {
+    width: 6px;
+}
+
+.hairstyle-ai-page::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.hairstyle-ai-page::-webkit-scrollbar-thumb {
+    background: rgba(45, 212, 191, 0.3);
+    border-radius: 3px;
+}
+
+.hairstyle-ai-page::-webkit-scrollbar-thumb:hover {
+    background: rgba(45, 212, 191, 0.5);
+}
+
+/* NEW RESULTS STYLES FOR HSAI GRID */
+
+.hsai-analysis-header-new {
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hsai-analysis-header-new h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.hsai-stats-grid-new {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 3rem;
+}
+
+.hsai-stat-card-new {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 28px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hsai-stat-label-new {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.hsai-stat-value-new {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #2dd4bf;
+}
+
+.hsai-stat-badge-new {
+    background: #2dd4bf;
+    color: #0b0f1a;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-weight: 900;
+    margin-top: 0.5rem;
+}
+
+.hsai-grid-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #e2e8f0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hsai-main-grid-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 32px;
+    overflow: hidden;
+    border: 4px solid rgba(45, 212, 191, 0.2);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    background: #000;
+}
+
+.hsai-grid-image-main {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: contain;
+    display: block;
+}
+
+.hsai-grid-overlay-tag {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(45, 212, 191, 0.4);
+    padding: 10px 20px;
+    border-radius: 12px;
+    color: #2dd4bf;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 1024px) {
+    .hsai-stats-grid-new {
+        grid-template-columns: 1fr;
+    }
+}

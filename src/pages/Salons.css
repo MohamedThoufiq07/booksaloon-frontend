@@ -1,0 +1,264 @@
+.salons-container {
+    padding: 100px 4rem 60px;
+    min-height: 100vh;
+}
+
+.salons-header {
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.salons-header h1 {
+    font-size: 2.8rem;
+    color: #fff;
+    font-weight: 900;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Search & Filter Row */
+.search-filter-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    justify-content: center;
+}
+
+.search-wrapper {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 2px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.search-wrapper:focus-within {
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 10px 40px rgba(45, 212, 191, 0.15);
+}
+
+.search-icon {
+    color: var(--primary);
+    margin-right: 15px;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 14px 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+}
+
+/* Salon Grid */
+.salon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.salon-card {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.salon-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.salon-img-container {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.salon-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.salon-card:hover .salon-card-img {
+    transform: scale(1.15);
+}
+
+.verified-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--primary);
+    color: #000;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.salon-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.salon-card-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+}
+
+.salon-card-address {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.salon-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.salon-price {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.price-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.salon-rating {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.book-btn-full {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary), #115e59);
+    color: #000;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 850;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.book-btn-full:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(20, 184, 166, 0.3);
+}
+
+/* Empty State */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 100px 20px;
+    color: #475569;
+}
+
+.no-results h3 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin: 20px 0 10px;
+}
+
+.no-results svg {
+    margin: 0 auto;
+}
+
+/* Loading State */
+.salons-loading {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    max-width: 1400px;
+    margin: 40px auto;
+}
+
+@media (max-width: 1200px) {
+    .salons-container {
+        padding: 100px 3rem 60px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .salons-header h1 {
+        font-size: 3rem;
+    }
+
+    .search-filter-row {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .salons-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .search-filter-row {
+        gap: 10px;
+    }
+}

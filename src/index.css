@@ -1,0 +1,124 @@
+:root {
+    --primary: #2dd4bf;
+    --primary-hover: #14b8a6;
+    --secondary: #64748b;
+    --accent: #5eead4;
+    --background: #020617;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --white: #ffffff;
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    color: var(--text-main);
+    position: relative;
+    background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(2, 6, 23, 0.3)),
+        url('./assets/salon_about.png') no-repeat center center fixed;
+    background-size: cover;
+    letter-spacing: -0.01em;
+}
+
+/* Global Smooth Background */
+#root {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* Mobile-Friendly Container Defaults */
+section {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    /* Prevent any horizontal shift */
+    * {
+        max-width: 100vw;
+    }
+}
+
+.glass-effect {
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: var(--shadow-premium) !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+a {
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+/* Global Animations */
+.page-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}

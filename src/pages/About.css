@@ -1,0 +1,239 @@
+.about-container {
+    padding: 120px 2rem 80px;
+    min-height: auto;
+    background: transparent;
+}
+
+.about-content-wrapper {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.about-header-section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    text-align: center;
+    position: relative;
+    padding: 0 2rem;
+}
+
+.about-header-section h1 {
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    color: #ffffff;
+    font-weight: 950;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1.1;
+}
+
+.about-header-section h1 span {
+    color: var(--primary);
+    display: block;
+    margin-top: 4px;
+}
+
+.about-header-section p {
+    font-size: 1.15rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 500;
+}
+
+/* Services List */
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.service-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 30px;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    border-color: rgba(45, 212, 191, 0.3);
+    background: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.service-item:hover .service-icon {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgba(45, 212, 191, 0.1) !important;
+}
+
+.service-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(45, 212, 191, 0.05);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.service-text {
+    text-align: left;
+}
+
+.service-text h3 {
+    font-size: 1.35rem;
+    color: #ffffff;
+    margin: 0 0 4px 0;
+    text-align: left;
+    font-weight: 800;
+}
+
+.service-text p {
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    font-weight: 500;
+}
+
+/* Right Side Image */
+.about-image-container {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    height: 100%;
+}
+
+.about-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.about-image-container:hover img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.05));
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .about-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+    }
+
+    .about-header-section {
+        margin-bottom: 40px;
+        padding: 0 1rem;
+    }
+
+    .about-right {
+        order: -1;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .about-image-container {
+        aspect-ratio: 16/11;
+        border-radius: 28px;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-container {
+        padding: 90px 1.25rem 50px;
+    }
+
+    .services-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .about-header-section h1 {
+        font-size: clamp(2.2rem, 10vw, 3rem);
+        letter-spacing: -1.5px;
+    }
+
+    .about-header-section p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .service-item {
+        padding: 24px;
+        border-radius: 24px;
+        text-align: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .service-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+    }
+
+    .service-text h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Decorative Glows */
+.about-container::before,
+.about-container::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.about-container::before {
+    background: var(--primary);
+    top: 10%;
+    left: 10%;
+}
+
+.about-container::after {
+    background: #0ea5e9;
+    bottom: 10%;
+    right: 10%;
+}

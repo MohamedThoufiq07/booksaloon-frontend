@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = 'http://localhost:5000/api/auth';
+    const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
 
     useEffect(() => {
         loadUser();

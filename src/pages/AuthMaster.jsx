@@ -201,13 +201,12 @@ const AuthMaster = () => {
                             {mode === 'login' ? (
                                 <>
                                     <div className="input-group">
-                                        <label htmlFor="email"><Mail size={16} /> Email Address</label>
                                         <div className="input-field-wrapper">
                                             <Mail size={18} className="input-icon" />
                                             <input
                                                 type="email"
                                                 id="email"
-                                                placeholder="name@example.com"
+                                                placeholder="example@gmail.com"
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
@@ -215,7 +214,6 @@ const AuthMaster = () => {
                                         </div>
                                     </div>
                                     <div className="input-group">
-                                        <label htmlFor="password"><Lock size={16} /> Password</label>
                                         <div className="input-field-wrapper">
                                             <Lock size={18} className="input-icon" />
                                             <input
@@ -242,39 +240,40 @@ const AuthMaster = () => {
                                     {userType === 'user' ? (
                                         <>
                                             <div className="input-group">
-                                                <label htmlFor="name"><User size={16} /> Full Name</label>
                                                 <div className="input-field-wrapper">
                                                     <User size={18} className="input-icon" />
-                                                    <input type="text" id="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
+                                                    <input type="text" id="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
                                                 </div>
                                             </div>
                                             <div className="input-group">
-                                                <label htmlFor="email"><Mail size={16} /> Email Address</label>
                                                 <div className="input-field-wrapper">
                                                     <Mail size={18} className="input-icon" />
-                                                    <input type="email" id="email" placeholder="name@example.com" value={formData.email} onChange={handleChange} required />
+                                                    <input type="email" id="email" placeholder="example@gmail.com" value={formData.email} onChange={handleChange} required />
                                                 </div>
                                             </div>
                                             <div className="input-group">
-                                                <label htmlFor="phone"><Phone size={16} /> Phone Number</label>
                                                 <div className="input-field-wrapper">
                                                     <Phone size={18} className="input-icon" />
-                                                    <input type="tel" id="phone" placeholder="9876543210" value={formData.phone} onChange={handleChange} required />
+                                                    <input type="tel" id="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
                                                 </div>
                                             </div>
                                             <div className="form-row">
                                                 <div className="input-group">
-                                                    <label htmlFor="password">Password</label>
                                                     <div className="input-field-wrapper">
                                                         <Lock size={18} className="input-icon" />
-                                                        <input type={showPassword ? "text" : "password"} id="password" placeholder="••••" value={formData.password} onChange={handleChange} required />
+                                                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                                                        <button type="button" className="pass-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                                                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div className="input-group">
-                                                    <label htmlFor="confirmPassword">Confirm</label>
                                                     <div className="input-field-wrapper">
                                                         <Lock size={18} className="input-icon" />
-                                                        <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" placeholder="••••" value={formData.confirmPassword} onChange={handleChange} required />
+                                                        <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} required />
+                                                        <button type="button" className="pass-toggle-btn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                                            {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,30 +283,26 @@ const AuthMaster = () => {
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                                             <div className="form-row">
                                                 <div className="input-group">
-                                                    <label><User size={14} /> Owner Name</label>
                                                     <div className="input-field-wrapper">
                                                         <User size={16} className="input-icon" />
                                                         <input type="text" id="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
                                                     </div>
                                                 </div>
                                                 <div className="input-group">
-                                                    <label><Mail size={14} /> Work Email</label>
                                                     <div className="input-field-wrapper">
                                                         <Mail size={16} className="input-icon" />
-                                                        <input type="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+                                                        <input type="email" id="email" placeholder="example@gmail.com" value={formData.email} onChange={handleChange} required />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="form-row">
                                                 <div className="input-group">
-                                                    <label><Phone size={14} /> Phone Number</label>
                                                     <div className="input-field-wrapper">
                                                         <Phone size={16} className="input-icon" />
                                                         <input type="tel" id="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
                                                     </div>
                                                 </div>
                                                 <div className="input-group">
-                                                    <label><Store size={14} /> Salon Name</label>
                                                     <div className="input-field-wrapper">
                                                         <Store size={16} className="input-icon" />
                                                         <input type="text" id="salonName" placeholder="Salon" value={formData.salonName} onChange={handleChange} required />
@@ -316,22 +311,19 @@ const AuthMaster = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="input-group">
-                                                    <label><IndianRupee size={14} /> Price (₹)</label>
                                                     <div className="input-field-wrapper">
                                                         <IndianRupee size={16} className="input-icon" />
-                                                        <input type="number" id="startingPrice" placeholder="499" value={formData.startingPrice} onChange={handleChange} required />
+                                                        <input type="number" id="startingPrice" placeholder="Starting Price (₹)" value={formData.startingPrice} onChange={handleChange} required />
                                                     </div>
                                                 </div>
                                                 <div className="input-group">
-                                                    <label><MapPin size={14} /> Salon Location</label>
                                                     <div className="input-field-wrapper">
                                                         <MapPin size={16} className="input-icon" />
-                                                        <input type="text" id="salonLocation" placeholder="City, State" value={formData.salonLocation} onChange={handleChange} required />
+                                                        <input type="text" id="salonLocation" placeholder="Salon Location" value={formData.salonLocation} onChange={handleChange} required />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="input-group">
-                                                <label><Image size={14} /> Upload Salon Photos</label>
                                                 <div className="input-field-wrapper">
                                                     <Image size={16} className="input-icon" />
                                                     <input
@@ -353,17 +345,21 @@ const AuthMaster = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="input-group">
-                                                    <label>Password</label>
                                                     <div className="input-field-wrapper">
                                                         <Lock size={16} className="input-icon" />
-                                                        <input type="password" id="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required />
+                                                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                                                        <button type="button" className="pass-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+                                                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div className="input-group">
-                                                    <label>Confirm</label>
                                                     <div className="input-field-wrapper">
                                                         <Lock size={16} className="input-icon" />
-                                                        <input type="password" id="confirmPassword" placeholder="••••••••" value={formData.confirmPassword} onChange={handleChange} required />
+                                                        <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" placeholder="Confirm" value={formData.confirmPassword} onChange={handleChange} required />
+                                                        <button type="button" className="pass-toggle-btn" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                                            {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

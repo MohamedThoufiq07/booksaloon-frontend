@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import BookingModal from '../components/BookingModal';
 import SkeletonLoader from '../components/SkeletonLoader';
+import NearbySalons from '../components/NearbySalons';
 import api from '../utils/api';
 import './Salons.css';
 
@@ -215,6 +216,10 @@ const Salons = () => {
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
+                    
+                    <a href="#nearby-salons" className="nearby-jump-btn">
+                        <MapPin size={18} /> NEARBY SALONS
+                    </a>
                 </div>
             </div>
 
@@ -282,6 +287,9 @@ const Salons = () => {
                     )}
                 </motion.div>
             )}
+
+            {/* ✅ Nearby Salons Feature added at the very bottom */}
+            <NearbySalons />
         </div>
     );
 };

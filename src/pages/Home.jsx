@@ -80,7 +80,10 @@ const Home = () => {
                                 onFocus={() => setShowSuggestions(true)}
                                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                             />
-                            <button className="search-btn">SEARCH</button>
+                            <button 
+                                className="search-btn"
+                                onClick={() => navigate(`/salons?query=${searchQuery}`)}
+                            >SEARCH</button>
 
                             <AnimatePresence>
                                 {showSuggestions && (
@@ -109,8 +112,8 @@ const Home = () => {
                         >
                             <Sparkles size={20} /> BOOK NOW
                         </button>
-                        <a href="/salons" className="btn-secondary">
-                            EXPLORE SALONS <ArrowRight size={20} />
+                        <a href="/salons#nearby-salons" className="btn-secondary">
+                            EXPLORE NEARBY SALONS <ArrowRight size={20} />
                         </a>
                     </motion.div>
 

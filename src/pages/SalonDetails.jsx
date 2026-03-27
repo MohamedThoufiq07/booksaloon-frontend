@@ -8,18 +8,28 @@ import {
 } from 'lucide-react';
 import BookingModal from '../components/BookingModal';
 import SkeletonLoader from '../components/SkeletonLoader';
+import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 import './SalonDetails.css';
 
 const SalonDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { isLoggedIn } = useAuth();
     const [salon, setSalon] = useState(null);
     const [services, setServices] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('services');
+
+    const handleBookClick = () => {
+        if (!isLoggedIn) {
+            navigate('/login', { state: { from: `/salons/${id}` } });
+            return;
+        }
+        setIsModalOpen(true);
+    };
 
     useEffect(() => {
         fetchSalonDetails();
@@ -100,7 +110,7 @@ const SalonDetails = () => {
                                             </div>
                                             <div className="service-action-col">
                                                 <span className="service-price">₹{s.price}</span>
-                                                <button className="btn-primary-small" onClick={() => setIsModalOpen(true)}>Book</button>
+                                                <button className="btn-primary-small" onClick={handleBookClick}>Book</button>
                                             </div>
                                         </div>
                                     ))}
@@ -160,7 +170,7 @@ const SalonDetails = () => {
                             <h3>Ready to shine?</h3>
                             <p>Select your favorite service and date.</p>
                         </div>
-                        <button className="btn-primary w-full py-4" onClick={() => setIsModalOpen(true)}>
+                        <button className="btn-primary w-full py-4" onClick={handleBookClick}>
                             BOOK NOW
                         </button>
                         <hr className="my-6 border-white/5" />

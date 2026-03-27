@@ -17,7 +17,10 @@ export const analyzeFaceAndHair = async (imageFile) => {
     formData.append('image', imageFile);
 
     try {
-        const response = await axios.post(`${API_URL}/analyze`, formData, getAuthHeader());
+        const response = await axios.post(`${API_URL}/analyze`, formData, {
+            ...getAuthHeader(),
+            timeout: 120000
+        });
         return response.data;
     } catch (error) {
         console.error("AI Analysis API Error:", error);

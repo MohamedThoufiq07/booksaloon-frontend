@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Star, ShoppingCart, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Star, ShoppingCart, MapPin, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import api from '../utils/api';
@@ -54,6 +55,7 @@ const FALLBACK_PRODUCTS = [
 ];
 
 const Products = () => {
+    const navigate = useNavigate();
     const { user, isLoggedIn } = useAuth();
     const { addToCart } = useCart();
     const [searchTerm, setSearchTerm] = useState('');
@@ -88,6 +90,10 @@ const Products = () => {
     };
 
     const handleAddToCart = (product) => {
+        if (!isLoggedIn) {
+            navigate('/login', { state: { from: '/products' } });
+            return;
+        }
         addToCart(product);
         setToastProduct(product);
         setShowToast(true);
@@ -169,10 +175,14 @@ const Products = () => {
                                 </div>
                                 <button
                                     className="add-to-cart-btn"
-                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, var(--primary), var(--primary-hover))', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: '800', width: '100%', marginTop: '15px' }}
+                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: isLoggedIn ? 'linear-gradient(135deg, var(--primary), var(--primary-hover))' : 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '12px', fontWeight: '800', width: '100%', marginTop: '15px' }}
                                     onClick={() => handleAddToCart(product)}
                                 >
-                                    <ShoppingCart size={18} style={{ marginRight: '8px' }} /> Add to Cart
+                                    {isLoggedIn ? (
+                                        <><ShoppingCart size={18} style={{ marginRight: '8px' }} /> Add to Cart</>
+                                    ) : (
+                                        <><LogIn size={18} style={{ marginRight: '8px' }} /> Login to Shop</>
+                                    )}
                                 </button>
                             </div>
                         </motion.div>

@@ -7,9 +7,11 @@ import {
 } from 'lucide-react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './BookingModal.css';
 
 const BookingModal = ({ isOpen, onClose, salon }) => {
+    const navigate = useNavigate();
     const { isLoggedIn, user: currentUser } = useAuth();
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -111,7 +113,8 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
 
     const handleBooking = async () => {
         if (!isLoggedIn) {
-            setError('Please login to book an appointment');
+            onClose();
+            navigate('/login', { state: { from: `/salons/${salon?._id}` } });
             return;
         }
 

@@ -514,7 +514,7 @@
     margin-top: 1rem;
 }
 
-/* NEW FLOATING STATS & FALLBACK GALLERY */
+/* FLOATING STATS */
 
 .analysis-floating-stats {
     background: rgba(15, 23, 42, 0.6);
@@ -529,41 +529,82 @@
     z-index: 10;
 }
 
-.search-img-fallback {
+/* AI GENERATED HAIRSTYLE CARDS */
+
+.ai-hairstyles-section {
+    width: 100%;
+}
+
+.hairstyle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.hairstyle-card {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.hairstyle-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 210, 255, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 210, 255, 0.15);
+}
+
+.hairstyle-img-wrapper {
     width: 100%;
     aspect-ratio: 3 / 4;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.search-result-item {
-    position: relative;
     overflow: hidden;
-    border-radius: 12px;
 }
 
-.search-result-item:hover .search-img-fallback {
+.hairstyle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.hairstyle-card:hover .hairstyle-img {
     transform: scale(1.05);
-    border-color: #00d2ff;
 }
 
-.search-img-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.7rem;
-    font-weight: 700;
+.hairstyle-label {
+    padding: 0.75rem 0.5rem;
+    background: rgba(0, 210, 255, 0.1);
+    color: #00d2ff;
+    font-size: 0.8rem;
+    font-weight: 800;
     text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(0, 210, 255, 0.2);
 }
 
-.search-result-item:hover .search-img-overlay {
-    opacity: 1;
+.no-results-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    text-align: center;
+    color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+    .hairstyle-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hairstyle-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -167,7 +167,7 @@ const HairStyleAI = () => {
 
             const response = await axios.post(`${API_BASE}/analyze`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
-                timeout: 30000
+                timeout: 120000
             });
 
             if (response.data.success) {

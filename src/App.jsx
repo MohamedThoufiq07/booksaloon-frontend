@@ -15,6 +15,7 @@ import HairStyleAI from './pages/HairStyleAI';
 import PartnerDashboard from './pages/PartnerDashboard';
 import PartnerConnect from './pages/PartnerConnect';
 import ScrollToTop from './components/ScrollToTop';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import Dashboard from './pages/Dashboard';
 import SalonDetails from './pages/SalonDetails';
@@ -37,8 +38,8 @@ function AppContent() {
                     <Route path="/salons" element={<Salons />} />
                     <Route path="/salons/:id" element={<SalonDetails />} />
                     <Route path="/products" element={<Products />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/order-confirmation" element={<OrderConfirmation />} />
+                    <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                    <Route path="/order-confirmation" element={<ProtectedRoute><OrderConfirmation /></ProtectedRoute>} />
                     <Route path="/about" element={<About />} />
                     <Route path="/login" element={<AuthMaster />} />
                     <Route path="/signup" element={<AuthMaster />} />
@@ -46,10 +47,10 @@ function AppContent() {
                     <Route path="/salon-signup" element={<AuthMaster />} />
                     <Route path="/partner-login" element={<AuthMaster />} />
                     <Route path="/partner-signup" element={<AuthMaster />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/hair-tracker" element={<HairTracker />} />
-                    <Route path="/hairstyle-ai" element={<HairStyleAI />} />
-                    <Route path="/partner-dashboard" element={<PartnerDashboard />} />
+                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                    <Route path="/hair-tracker" element={<ProtectedRoute><HairTracker /></ProtectedRoute>} />
+                    <Route path="/hairstyle-ai" element={<ProtectedRoute><HairStyleAI /></ProtectedRoute>} />
+                    <Route path="/partner-dashboard" element={<ProtectedRoute><PartnerDashboard /></ProtectedRoute>} />
                     <Route path="/partner-connect" element={<PartnerConnect />} />
                     <Route path="*" element={<Home />} />
                 </Routes>

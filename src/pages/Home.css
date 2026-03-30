@@ -22,13 +22,15 @@
 /* Hero Section */
 .hero {
     position: relative;
-    padding: 100px 4rem 140px;
+    padding: var(--section-gap) var(--container-padding);
     background: radial-gradient(circle at 50% -20%, rgba(45, 212, 191, 0.15) 0%, transparent 60%);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     overflow: hidden;
+    min-height: 80vh;
+    justify-content: center;
 }
 
 .hero-content {
@@ -238,8 +240,8 @@
 /* Trust Stats */
 .trust-stats-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
     margin-top: 60px;
     width: 100%;
     max-width: 1200px;
@@ -293,7 +295,7 @@
 
 /* Offers Section */
 .offers-section {
-    padding: 100px 4rem;
+    padding: var(--section-gap) var(--container-padding);
 }
 
 .exclusive-badge {
@@ -316,8 +318,8 @@
 
 .offer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(16px, 3vw, 32px);
 }
 
 .offer-card {
@@ -421,15 +423,15 @@
 
 /* Features Section */
 .features-section {
-    padding: 100px 4rem;
+    padding: var(--section-gap) var(--container-padding);
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 3vw, 32px);
     margin-top: 60px;
 }
 
@@ -479,7 +481,7 @@
 
 /* Testimonials */
 .testimonials-section {
-    padding: 100px 4rem;
+    padding: var(--section-gap) var(--container-padding);
     background: radial-gradient(circle at bottom left, rgba(45, 212, 191, 0.05), transparent);
 }
 
@@ -526,7 +528,7 @@
 
 /* FAQ */
 .faq-section {
-    padding: 100px 4rem;
+    padding: var(--section-gap) var(--container-padding);
     max-width: 900px;
     margin: 0 auto;
 }
@@ -574,14 +576,14 @@ details[open] .faq-arrow {
 
 /* Newsletter */
 .newsletter-section {
-    padding: 100px 4rem;
+    padding: var(--section-gap) var(--container-padding);
 }
 
 .newsletter-card {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 80px;
-    border-radius: 40px;
+    padding: clamp(40px, 8vw, 80px) var(--inner-padding);
+    border-radius: clamp(24px, 5vw, 40px);
     text-align: center;
     background: linear-gradient(135deg, rgba(45, 212, 191, 0.1), rgba(59, 130, 246, 0.1));
 }
@@ -619,21 +621,6 @@ details[open] .faq-arrow {
     padding: 0 30px;
 }
 
-@media (max-width: 1100px) {
-
-    .features-grid,
-    .testimonials-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .features-section,
-    .testimonials-section,
-    .faq-section,
-    .newsletter-section {
-        padding: 80px 2rem;
-    }
-}
-
 @media (max-width: 1024px) {
     .trust-stats-section {
         grid-template-columns: repeat(2, 1fr);
@@ -641,10 +628,6 @@ details[open] .faq-arrow {
 }
 
 @media (max-width: 768px) {
-    .hero {
-        padding: 80px 2rem 100px;
-    }
-
     .hero-title {
         font-size: clamp(2.2rem, 12vw, 3.2rem);
         letter-spacing: -1.5px;
@@ -658,10 +641,24 @@ details[open] .faq-arrow {
     .btn-primary,
     .btn-secondary {
         width: 100%;
+        padding: 16px 32px;
     }
 
     .trust-stats-section {
         grid-template-columns: 1fr;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .newsletter-card h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .newsletter-card p {
+        font-size: 1rem;
     }
 
     .section-title {

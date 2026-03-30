@@ -1,5 +1,5 @@
 .salons-container {
-    padding: 100px 4rem 60px;
+    padding: var(--section-gap) var(--container-padding);
     min-height: 100vh;
 }
 
@@ -13,12 +13,12 @@
 }
 
 .salons-header h1 {
-    font-size: 2.8rem;
+    font-size: clamp(2rem, 8vw, 2.8rem);
     color: #fff;
-    font-weight: 900;
+    font-weight: 950;
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
     text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -264,28 +264,21 @@
     margin: 40px auto;
 }
 
-@media (max-width: 1200px) {
-    .salons-container {
-        padding: 100px 3rem 60px;
-    }
-}
-
 @media (max-width: 1024px) {
-    .salons-header h1 {
-        font-size: 3rem;
-    }
-
     .search-filter-row {
         flex-direction: column;
+        align-items: stretch;
     }
 }
 
-@media (max-width: 600px) {
-    .salons-header h1 {
-        font-size: 2.2rem;
+@media (max-width: 768px) {
+    .salon-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
     }
 
-    .search-filter-row {
-        gap: 10px;
+    .nearby-jump-btn {
+        width: 100%;
+        padding: 14px;
     }
 }

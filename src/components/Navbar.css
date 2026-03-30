@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.8rem 4rem;
+    padding: 1rem var(--container-padding);
     background-color: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -455,18 +455,19 @@
 }
 
 @media (max-width: 1024px) {
-
-    .navbar,
-    .navbar.scrolled {
-        padding: 0.7rem 2rem;
+    .navbar-menu {
+        gap: 8px;
     }
 }
 
 @media (max-width: 768px) {
+    .brand-name {
+        font-size: 1.25rem;
+    }
 
-    .navbar,
-    .navbar.scrolled {
-        padding: 0.7rem 1.2rem;
+    .brand-logo {
+        width: 36px;
+        height: 36px;
     }
 
     .mobile-menu-btn {
@@ -477,47 +478,47 @@
         display: none;
         flex-direction: column;
         position: fixed;
-        top: 64px;
+        top: 68px;
         left: 0;
         width: 100%;
-        height: calc(100vh - 64px);
-        background: #0f172a;
-        padding: 30px 20px;
-        gap: 20px;
-        align-items: flex-start;
+        height: calc(100vh - 68px);
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        padding: 40px var(--container-padding);
+        gap: 32px;
+        align-items: center;
         overflow-y: auto;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 10000;
+        text-align: center;
     }
 
     .navbar-menu.mobile-active {
         display: flex;
+        animation: slideInDown 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .navbar-links {
         flex-direction: column;
         width: 100%;
-        gap: 8px;
-        margin-right: 0;
+        gap: 16px;
     }
 
     .nav-item {
         width: 100%;
-        padding: 12px 16px;
-        font-size: 1.05rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 0;
-    }
-
-    .nav-item:last-child {
-        border-bottom: none;
+        padding: 14px;
+        font-size: 1.2rem;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
     }
 
     .auth-group {
         width: 100%;
         flex-direction: column;
-        gap: 12px;
-        padding-top: 12px;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        gap: 16px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .dropdown,
@@ -528,7 +529,8 @@
     .dropdown-btn {
         width: 100%;
         justify-content: center;
-        padding: 12px;
+        padding: 14px;
+        font-size: 1.1rem;
     }
 
     .dropdown-content {
@@ -536,6 +538,18 @@
         width: 100%;
         box-shadow: none;
         background: rgba(0, 0, 0, 0.2);
-        margin-top: 4px;
+        margin-top: 8px;
+        border-radius: 12px;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

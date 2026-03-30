@@ -1,7 +1,7 @@
 .ai-tool-container {
     min-height: calc(100vh - 80px);
     background: radial-gradient(circle at top right, #1e293b, #020617);
-    padding: 4rem 2rem;
+    padding: var(--section-gap) var(--container-padding);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -11,8 +11,8 @@
 }
 
 .ai-glass-card {
-    width: 1100px;
-    max-width: 95vw;
+    width: 100%;
+    max-width: 1200px;
     background: rgba(15, 23, 42, 0.7);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -26,12 +26,18 @@
 /* Left Panel: Upload & Preview */
 .ai-left-panel {
     flex: 1;
-    min-width: 400px;
-    padding: 3rem;
+    min-width: 350px;
+    padding: clamp(1.5rem, 5vw, 3rem);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+@media (max-width: 1024px) {
+    .ai-left-panel {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 }
 
 .tool-header h1 {
@@ -136,8 +142,8 @@
 /* Right Panel: Results */
 .ai-right-panel {
     flex: 1.5;
-    min-width: 500px;
-    padding: 3rem;
+    min-width: 350px;
+    padding: clamp(1.5rem, 5vw, 3rem);
     background: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
@@ -319,17 +325,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@media (max-width: 1024px) {
-
-    .ai-left-panel,
-    .ai-right-panel {
-        flex: none;
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 

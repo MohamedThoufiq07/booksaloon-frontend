@@ -1,6 +1,5 @@
-/* Products Page Styling */
 .products-container {
-    padding: 120px 4rem 80px;
+    padding: var(--section-gap) var(--container-padding);
     min-height: 100vh;
 }
 
@@ -10,12 +9,12 @@
 }
 
 .products-header h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 8vw, 3rem);
     color: var(--text-main);
-    font-weight: 850;
+    font-weight: 950;
     margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: -1.5px;
 }
 
 /* Search Bar Styling (Same as Salons for consistency) */
@@ -175,13 +174,25 @@
 
 /* Media queries removed as auto-fill handles it better */
 
-@media (max-width: 550px) {
+@media (max-width: 768px) {
     .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
     }
 
-    .products-container {
-        padding: 100px 1.5rem 60px;
+    .category-filters {
+        gap: 10px;
+    }
+
+    .filter-btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
     }
 }
 

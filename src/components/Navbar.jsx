@@ -32,9 +32,19 @@ const Navbar = ({ isDashboard, partnerPills }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = () => {
+        const newState = !isMenuOpen;
+        setIsMenuOpen(newState);
+        if (newState) {
+            document.body.classList.add('no-scroll');
+        } else {
+            document.body.classList.remove('no-scroll');
+        }
+    };
+
     const closeMenu = () => {
         setIsMenuOpen(false);
+        document.body.classList.remove('no-scroll');
         setShowLoginMenu(false);
         setShowProfileMenu(false);
         setShowPartnerMore(false);

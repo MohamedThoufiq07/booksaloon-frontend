@@ -87,7 +87,16 @@ const NearbySalons = () => {
                     const res = await api.get('/salons/nearby', {
                         params: { lat: latitude, lng: longitude, radius: 10000 }
                     });
-                    setSalons(res.data.salons || []);
+                    const repairedSalons = (res.data.salons || []).map(salon => {
+                        if (salon.location && salon.location.coordinates[0] === 0 && salon.location.coordinates[1] === 0) {
+                            return {
+                                ...salon,
+                                location: { ...salon.location, coordinates: [77.7567, 8.7139] }
+                            };
+                        }
+                        return salon;
+                    });
+                    setSalons(repairedSalons);
                 } catch {
                     setError("Failed to fetch nearby salons. Please try again.");
                 } finally {
@@ -107,13 +116,13 @@ const NearbySalons = () => {
         inner: { 
             maxWidth: "1100px", 
             margin: "0 auto",
-            background: "rgba(10, 15, 30, 0.85)", // Dark background
+            background: "rgba(15, 23, 42, 0.3)", // Much brighter/transparent
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
             borderRadius: "24px",
             padding: "40px",
-            border: "1px solid rgba(45, 212, 191, 0.2)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.3)"
         },
         header: { textAlign: "center", marginBottom: "28px" },
         title: { color: "var(--primary)", fontSize: "2.4rem", marginBottom: "8px", fontWeight: "900", letterSpacing: "-1px" },

@@ -3,15 +3,14 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 /**
- * ProtectedRoute — wraps any route that requires login.
- * If user is not logged in, redirects to /login with a returnUrl
- * so the user can be sent back to the page after login.
+ * ProtectedRoute — wraps any route that requires login and optionally specific roles.
+ * If user is not logged in, redirects to /login.
+ * If user does not have the required role, redirects them to their correct dashboard.
  */
-const ProtectedRoute = ({ children }) => {
-    const { isLoggedIn, loading } = useAuth();
+const ProtectedRoute = ({ children, allowedRoles }) => {
+    const { isLoggedIn, user, loading } = useAuth();
     const location = useLocation();
 
-    // While auth state is loading, show nothing (prevents flash redirect)
     if (loading) {
         return (
             <div style={{
@@ -28,11 +27,19 @@ const ProtectedRoute = ({ children }) => {
     }
 
     if (!isLoggedIn) {
-        // Redirect to login, preserving the intended destination
         return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+    }
+
+    // Role-based access control
+    if (allowedRoles && !allowedRoles.includes(user?.role)) {
+        // Redirect to their respective dashboard if they're in the wrong place
+        if (user?.role === 'salonOwner') return <Navigate to="/partner/dashboard" replace />;
+        if (user?.role === 'admin') return <Navigate to="/admin/dashboard" replace />;
+        return <Navigate to="/user/dashboard" replace />;
     }
 
     return children;
 };
 
 export default ProtectedRoute;
+

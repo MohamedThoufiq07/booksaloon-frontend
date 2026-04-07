@@ -64,7 +64,7 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [showToast, setShowToast] = useState(false);
     const [toastProduct, setToastProduct] = useState(null);
-    const EMPTY_IMAGE = "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=400&q=80";
+    const GENERIC_PLACEHOLDER = "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80";
 
     const categories = ['All', 'Hair Care', 'Styling', 'Shaving', 'Skin Care', 'Tools'];
 
@@ -155,10 +155,17 @@ const Products = () => {
                         >
                             <div className="product-img-container">
                                 <img
-                                    src={product.img || EMPTY_IMAGE}
+                                    src={product.img || product.image || `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`}
                                     alt={product.name}
                                     className="product-card-img"
-                                    onError={(e) => { e.target.src = EMPTY_IMAGE; }}
+                                    onError={(e) => {
+                                        if (!e.target.dataset.fallback) {
+                                            e.target.dataset.fallback = '1';
+                                            e.target.src = `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`;
+                                        } else {
+                                            e.target.src = GENERIC_PLACEHOLDER;
+                                        }
+                                    }}
                                 />
                             </div>
                             <div className="product-info">

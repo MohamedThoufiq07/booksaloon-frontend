@@ -79,7 +79,9 @@ html {
 }
 
 /* Prevent any horizontal shift globally */
-img, video, canvas {
+img,
+video,
+canvas {
     max-width: 100%;
     height: auto;
 }

@@ -107,6 +107,32 @@
     transform: translateX(8px);
 }
 
+.section-link {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.section-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-hover);
+}
+
+.section-link a {
+    color: var(--text-main) !important;
+    font-weight: 700 !important;
+}
+
+.footer-divider-mini {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 20px 0;
+    width: 100%;
+}
+
 /* Contact Section */
 .contact-details {
     list-style: none;

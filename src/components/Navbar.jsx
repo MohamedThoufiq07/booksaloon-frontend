@@ -176,10 +176,19 @@ const Navbar = ({ isDashboard, partnerPills }) => {
                                         <p className="dropdown-user-email">{user?.email || ''}</p>
                                     </div>
                                     <hr className="dropdown-divider" />
-                                    <Link to="/dashboard" className="profile-dropdown-item" onClick={closeMenu}>
+                                    {/* Dynamic Dashboard link based on role */}
+                                    <Link 
+                                        to={user?.role === 'salonOwner' ? "/partner/dashboard" : user?.role === 'admin' ? "/admin/dashboard" : "/user/dashboard"} 
+                                        className="profile-dropdown-item" 
+                                        onClick={closeMenu}
+                                    >
                                         <User size={16} /> Dashboard
                                     </Link>
-                                    <Link to="/dashboard?tab=settings" className="profile-dropdown-item" onClick={closeMenu}>
+                                    <Link 
+                                        to={user?.role === 'salonOwner' ? "/partner/dashboard?view=salon" : user?.role === 'admin' ? "/admin/dashboard" : "/user/dashboard?tab=settings"} 
+                                        className="profile-dropdown-item" 
+                                        onClick={closeMenu}
+                                    >
                                         <Settings size={16} /> Settings
                                     </Link>
                                     <hr className="dropdown-divider" />

@@ -1,5 +1,5 @@
 .products-container {
-    padding: var(--section-gap) var(--container-padding);
+    padding: clamp(100px, 12vh, 140px) var(--container-padding) var(--section-gap);
     min-height: 100vh;
 }
 
@@ -10,11 +10,12 @@
 
 .products-header h1 {
     font-size: clamp(2rem, 8vw, 3rem);
-    color: var(--text-main);
+    color: #ffffff;
     font-weight: 950;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: -1.5px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Search Bar Styling (Same as Salons for consistency) */

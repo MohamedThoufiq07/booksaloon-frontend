@@ -53,6 +53,7 @@
     border: 1px solid rgba(250, 204, 21, 0.2);
     backdrop-filter: blur(8px);
     letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title {
@@ -62,6 +63,7 @@
     color: #ffffff;
     font-weight: 950;
     letter-spacing: -2px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .gradient-text {
@@ -69,14 +71,17 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(45, 212, 191, 0.3));
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
     max-width: 600px;
     margin: 0 auto 48px;
     line-height: 1.6;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Hero Search Bar */

@@ -86,7 +86,7 @@ const AuthMaster = () => {
                     const result = await partnerLogin(formData.email, formData.password);
                     if (result.success) {
                         setSuccessMsg('Login successful');
-                        setTimeout(() => navigate('/partner-dashboard'), 1000);
+                        setTimeout(() => navigate('/partner/dashboard'), 1000);
                     } else {
                         setError(result.message || 'Invalid partner credentials');
                     }

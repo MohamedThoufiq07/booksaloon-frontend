@@ -1,5 +1,5 @@
 .salons-container {
-    padding: var(--section-gap) var(--container-padding);
+    padding: clamp(100px, 12vh, 140px) var(--container-padding) var(--section-gap);
     min-height: 100vh;
 }
 
@@ -169,16 +169,18 @@
     color: #fff;
     margin-bottom: 4px;
     letter-spacing: -0.3px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .salon-card-address {
     font-size: 0.88rem;
-    color: #94a3b8;
+    color: #e2e8f0;
     display: flex;
     align-items: center;
     gap: 6px;
     margin: 0;
     line-height: 1.4;
+    font-weight: 500;
 }
 
 .salon-card-footer {
@@ -194,9 +196,10 @@
 
 .price-label {
     font-size: 0.8rem;
-    color: #64748b;
-    font-weight: 700;
+    color: #94a3b8;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .price-value {
@@ -242,7 +245,8 @@
     grid-column: 1 / -1;
     text-align: center;
     padding: 100px 20px;
-    color: #475569;
+    color: #cbd5e1;
+    font-weight: 500;
 }
 
 .no-results h3 {

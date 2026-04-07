@@ -133,7 +133,19 @@ const Cart = () => {
                                     <h3>Review Your Items</h3>
                                     {cartItems.map(item => (
                                         <div key={item._id || item.id} className="cart-item-card glass-effect">
-                                            <img src={item.img || item.image} alt={item.name} className="item-img" />
+                                            <img
+                                                src={item.img || item.image || `https://source.unsplash.com/200x200/?${encodeURIComponent(item.name)}`}
+                                                alt={item.name}
+                                                className="item-img"
+                                                onError={(e) => {
+                                                    if (!e.target.dataset.fallback) {
+                                                        e.target.dataset.fallback = '1';
+                                                        e.target.src = `https://source.unsplash.com/200x200/?${encodeURIComponent(item.name)}`;
+                                                    } else {
+                                                        e.target.src = 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80';
+                                                    }
+                                                }}
+                                            />
                                             <div className="item-info">
                                                 <h4>{item.name}</h4>
                                                 <p className="item-price-unit">₹{item.price}</p>
@@ -166,6 +178,7 @@ const Cart = () => {
                                             className={`delivery-card glass-effect ${deliveryType === 'home' ? 'selected' : ''}`}
                                             onClick={() => setDeliveryType('home')}
                                         >
+                                            {deliveryType === 'home' && <CheckCircle2 className="selected-check-icon" size={20} />}
                                             <div className="delivery-label-tag">DELIVERY</div>
                                             <Truck size={32} />
                                             <h4>Home Delivery</h4>
@@ -176,6 +189,7 @@ const Cart = () => {
                                             className={`delivery-card glass-effect ${deliveryType === 'pickup' ? 'selected' : ''}`}
                                             onClick={() => setDeliveryType('pickup')}
                                         >
+                                            {deliveryType === 'pickup' && <CheckCircle2 className="selected-check-icon" size={20} />}
                                             <div className="delivery-label-tag">PICKUP</div>
                                             <Store size={32} />
                                             <h4>Salon Pickup</h4>
@@ -250,7 +264,7 @@ const Cart = () => {
                                                 onClick={() => setSelectedSalon(s)}
                                             >
                                                 <div className="salon-pick-info">
-                                                    <h4>{s.name}</h4>
+                                                    <h4>{s.name} {selectedSalon?._id === s._id && <CheckCircle2 size={16} className="inline-check ml-2" />}</h4>
                                                     <p><MapPin size={12} /> {s.address}</p>
                                                 </div>
                                                 <div className="salon-pick-dist">Available</div>

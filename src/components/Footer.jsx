@@ -49,19 +49,35 @@ const Footer = () => {
                     <div className="footer-section">
                         <h3>Quick Links</h3>
                         <ul className="footer-links">
+                            {/* Primary Section Switchers */}
+                            <li className="section-link">
+                                <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                    <ChevronRight size={14} /> User Section
+                                </Link>
+                            </li>
+                            <li className="section-link">
+                                <Link to="/partner-connect" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                    <ChevronRight size={14} /> Partner Section
+                                </Link>
+                            </li>
+
+                            <div className="footer-divider-mini"></div>
+
                             {isPartnerPage ? (
                                 <>
-                                    <li><Link to="/partner-dashboard?view=dashboard"><ChevronRight size={14} /> Dashboard</Link></li>
-                                    <li><Link to="/partner-dashboard?view=salon"><ChevronRight size={14} /> Salon Profile</Link></li>
-                                    <li><Link to="/partner-dashboard?view=services"><ChevronRight size={14} /> Services Menu</Link></li>
-                                    <li><Link to="/partner-dashboard?view=products"><ChevronRight size={14} /> Inventory</Link></li>
+                                    <li><Link to="/partner/dashboard?view=dashboard" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Dashboard</Link></li>
+                                    <li><Link to="/partner/dashboard?view=salon" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Salon Profile</Link></li>
+                                    <li><Link to="/partner/dashboard?view=services" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Services Menu</Link></li>
+                                    <li><Link to="/partner/dashboard?view=products" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Inventory</Link></li>
+                                    <li><Link to="/partner/dashboard?view=orders" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Orders</Link></li>
+                                    <li><Link to="/partner/dashboard?view=bookings" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Bookings</Link></li>
                                 </>
                             ) : (
                                 <>
-                                    <li><Link to="/"><ChevronRight size={14} /> Home</Link></li>
-                                    <li><Link to="/salons"><ChevronRight size={14} /> Salons & Spas</Link></li>
-                                    <li><Link to="/products"><ChevronRight size={14} /> Shop Products</Link></li>
-                                    <li><Link to="/about"><ChevronRight size={14} /> About Us</Link></li>
+                                    <li><Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Home</Link></li>
+                                    <li><Link to="/salons" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Salons & Spas</Link></li>
+                                    <li><Link to="/products" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> Shop Products</Link></li>
+                                    <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><ChevronRight size={14} /> About Us</Link></li>
                                 </>
                             )}
                         </ul>

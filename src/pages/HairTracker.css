@@ -1,7 +1,7 @@
 .ai-tool-container {
     min-height: calc(100vh - 80px);
-    background: radial-gradient(circle at top right, #1e293b, #020617);
-    padding: var(--section-gap) var(--container-padding);
+    background: transparent;
+    padding: clamp(100px, 12vh, 140px) var(--container-padding) var(--section-gap);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -48,11 +48,13 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .tool-header p {
-    color: #94a3b8;
+    color: #e2e8f0;
     font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .upload-box {
@@ -187,19 +189,21 @@
 
 .stat-label {
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: #f1f5f9;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-weight: 700;
+    font-weight: 800;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .stat-value {
     font-size: 1.75rem;
-    font-weight: 800;
+    font-weight: 850;
     color: #ffffff !important;
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .confidence-badge {
@@ -260,14 +264,16 @@
     margin-bottom: 0.6rem;
     font-size: 1.2rem;
     color: #ffffff;
-    font-weight: 700;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .style-info p {
     font-size: 0.9rem;
-    color: #e2e8f0;
+    color: #ffffff;
     line-height: 1.5;
-    font-weight: 400;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .treatments-section {
@@ -284,11 +290,12 @@
 }
 
 .care-list li {
-    font-size: 0.9rem;
-    color: #cbd5e1;
+    font-size: 0.95rem;
+    color: #f8fafc;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-weight: 500;
 }
 
 .care-list li::before {
@@ -390,8 +397,8 @@
     background: linear-gradient(to top, rgba(15, 23, 42, 0.98), transparent);
     color: #ffffff;
     text-align: center;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.05rem;
+    font-weight: 800;
 }
 
 .stat-explanation {
@@ -589,7 +596,8 @@
     gap: 1rem;
     padding: 3rem;
     text-align: center;
-    color: #94a3b8;
+    color: #f1f5f9;
+    font-weight: 600;
 }
 
 @media (max-width: 768px) {

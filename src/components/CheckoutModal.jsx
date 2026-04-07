@@ -154,7 +154,19 @@ const CheckoutModal = ({ isOpen, onClose, product, user }) => {
                                 <div className="payment-view">
                                     <h3>Order Summary</h3>
                                     <div className="product-summary-card glass-effect mt-6">
-                                        <img src={product.img} alt="" className="summary-img" />
+                                        <img
+                                            src={product.img || product.image || `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`}
+                                            alt={product.name}
+                                            className="summary-img"
+                                            onError={(e) => {
+                                                if (!e.target.dataset.fallback) {
+                                                    e.target.dataset.fallback = '1';
+                                                    e.target.src = `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`;
+                                                } else {
+                                                    e.target.src = 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80';
+                                                }
+                                            }}
+                                        />
                                         <div className="summary-details">
                                             <h4>{product.name}</h4>
                                             <p className="text-primary-glow font-bold">₹{product.price}</p>

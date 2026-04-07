@@ -199,7 +199,9 @@
 
 .delivery-card.selected {
     border-color: var(--primary);
-    background: rgba(45, 212, 191, 0.05);
+    background: rgba(45, 212, 191, 0.1);
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.2);
 }
 
 .delivery-card h4 {
@@ -283,7 +285,9 @@
 
 .payment-card.active {
     border-color: var(--primary);
-    background: rgba(45, 212, 191, 0.05);
+    background: rgba(45, 212, 191, 0.12);
+    transform: translateX(10px);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.2);
 }
 
 .radio-circle-cart {
@@ -340,7 +344,9 @@
 
 .pickup-salon-card.selected {
     border-color: var(--primary);
-    background: rgba(45, 212, 191, 0.05);
+    background: rgba(45, 212, 191, 0.12);
+    transform: scale(1.01);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.2);
 }
 
 .salon-pick-info h4 {
@@ -865,4 +871,22 @@
 
 .delivery-card {
     position: relative;
+}
+
+.selected-check-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--primary);
+    filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.4));
+}
+
+.inline-check {
+    color: var(--primary);
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.ml-2 {
+    margin-left: 8px;
 }

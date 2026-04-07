@@ -21,7 +21,9 @@ import {
     Save,
     Trash2,
     Edit3,
-    ShoppingBag
+    ShoppingBag,
+    Bell,
+    Clock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
@@ -77,10 +79,70 @@ const PartnerDashboard = () => {
     const [newProduct, setNewProduct] = useState({ name: '', category: 'Shampoo', price: '', stock: '', img: '' });
     const [productOrders, setProductOrders] = useState([]);
 
+    // === Notification States ===
+    const [notifications, setNotifications] = useState([]);
+    const [showNotifPanel, setShowNotifPanel] = useState(false);
+    const [rejectingNotifId, setRejectingNotifId] = useState(null);
+    const [rejectNotifReason, setRejectNotifReason] = useState('');
+    const [notifActionMsg, setNotifActionMsg] = useState('');
+
+    // Fetch notifications
+    const fetchNotifications = async () => {
+        try {
+            const res = await api.get('/notifications/partner');
+            if (res.data.success) {
+                setNotifications(res.data.notifications);
+            }
+        } catch (err) {
+            // silent fail for polling
+        }
+    };
+
+    // Accept notification
+    const handleAcceptNotif = async (notifId) => {
+        try {
+            const res = await api.patch(`/notifications/${notifId}/accept`);
+            if (res.data.success) {
+                setNotifications(prev => prev.filter(n => n._id !== notifId));
+                setNotifActionMsg('Booking confirmed successfully!');
+                setTimeout(() => setNotifActionMsg(''), 3000);
+                fetchPartnerBookings(); // refresh bookings
+            }
+        } catch (err) {
+            console.error('Error accepting notification:', err);
+        }
+    };
+
+    // Reject notification
+    const handleRejectNotif = async (notifId) => {
+        try {
+            const res = await api.patch(`/notifications/${notifId}/reject`, {
+                reason: rejectNotifReason || 'Rejected by partner'
+            });
+            if (res.data.success) {
+                setNotifications(prev => prev.filter(n => n._id !== notifId));
+                setRejectingNotifId(null);
+                setRejectNotifReason('');
+                setNotifActionMsg('Booking rejected.');
+                setTimeout(() => setNotifActionMsg(''), 3000);
+                fetchPartnerBookings(); // refresh bookings
+            }
+        } catch (err) {
+            console.error('Error rejecting notification:', err);
+        }
+    };
+
     // Fetch partner bookings and stats on mount
     useEffect(() => {
         fetchPartnerBookings();
         fetchSalonProfile();
+        fetchNotifications();
+    }, []);
+
+    // Poll notifications every 30 seconds
+    useEffect(() => {
+        const interval = setInterval(fetchNotifications, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const fetchSalonProfile = async () => {
@@ -469,7 +531,18 @@ const PartnerDashboard = () => {
                         {products.map((product, index) => (
                             <div key={index} className="inventory-item">
                                 <div className="product-cell">
-                                    <img src={product.img || "https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=40&q=80"} alt="" />
+                                    <img
+                                        src={product.img || product.image || `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`}
+                                        alt={product.name}
+                                        onError={(e) => {
+                                            if (!e.target.dataset.fallback) {
+                                                e.target.dataset.fallback = '1';
+                                                e.target.src = `https://source.unsplash.com/200x200/?${encodeURIComponent(product.name)}`;
+                                            } else {
+                                                e.target.src = 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80';
+                                            }
+                                        }}
+                                    />
                                     <span>{product.name}</span>
                                 </div>
                                 <div className="category-cell">
@@ -686,7 +759,7 @@ const PartnerDashboard = () => {
                             className="modal-content glass-effect"
                         >
                             <h3>Add New Service</h3>
-                            <form onSubmit={handleAddService} className="modal-form">
+                            <form onSubmit={handleAddService} className="modal-form add-service-grid">
                                 <div className="form-group">
                                     <label>Service Name</label>
                                     <input
@@ -697,25 +770,28 @@ const PartnerDashboard = () => {
                                         placeholder="e.g. Premium Haircut"
                                     />
                                 </div>
-                                <div className="row-group">
-                                    <div className="form-group">
-                                        <label>Price (₹)</label>
-                                        <input
-                                            type="number"
-                                            required
-                                            value={newService.price}
-                                            onChange={(e) => setNewService({ ...newService, price: e.target.value })}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Duration (mins)</label>
-                                        <input
-                                            type="number"
-                                            required
-                                            value={newService.duration}
-                                            onChange={(e) => setNewService({ ...newService, duration: e.target.value })}
-                                        />
-                                    </div>
+                                <div className="form-group">
+                                    <label>Price (₹)</label>
+                                    <input
+                                        type="number"
+                                        required
+                                        value={newService.price}
+                                        onChange={(e) => setNewService({ ...newService, price: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Duration (mins)</label>
+                                    <input
+                                        type="number"
+                                        required
+                                        value={newService.duration}
+                                        onChange={(e) => setNewService({ ...newService, duration: e.target.value })}
+                                    />
+                                    {newService.duration > 30 && (
+                                        <p style={{ color: '#f43f5e', fontSize: '12px', marginTop: '4px', fontWeight: '600' }}>
+                                            Max service duration is 30 minutes
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <label>Category</label>
@@ -730,9 +806,16 @@ const PartnerDashboard = () => {
                                         <option value="Facial">Facial</option>
                                     </select>
                                 </div>
-                                <div className="modal-actions">
+                                <div className="modal-actions" style={{ gridColumn: '1 / -1' }}>
                                     <button type="button" className="cancel-btn" onClick={() => setIsAddServiceModalOpen(false)}>Cancel</button>
-                                    <button type="submit" className="save-btn">Add Service</button>
+                                    <button 
+                                        type="submit" 
+                                        className="save-btn"
+                                        disabled={!newService.duration || newService.duration > 30}
+                                        style={(!newService.duration || newService.duration > 30) ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                                    >
+                                        Add Service
+                                    </button>
                                 </div>
                             </form>
                         </motion.div>
@@ -809,6 +892,82 @@ const PartnerDashboard = () => {
                 }}
             />
             <div className="partner-dashboard page-fade-in">
+                {/* Notification Bell */}
+                <div className="notif-bell-wrapper">
+                    <button className="notif-bell-btn" onClick={() => setShowNotifPanel(!showNotifPanel)}>
+                        <Bell size={22} />
+                        {notifications.length > 0 && (
+                            <span className="notif-badge">{notifications.length}</span>
+                        )}
+                    </button>
+
+                    <AnimatePresence>
+                        {showNotifPanel && (
+                            <motion.div
+                                className="notif-panel glass-effect"
+                                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <div className="notif-panel-header">
+                                    <h4>Booking Notifications</h4>
+                                    <span className="notif-count">{notifications.length} unread</span>
+                                </div>
+
+                                {notifActionMsg && (
+                                    <div className="notif-action-msg">
+                                        <CheckCircle2 size={14} />
+                                        <span>{notifActionMsg}</span>
+                                    </div>
+                                )}
+
+                                <div className="notif-list">
+                                    {notifications.length === 0 ? (
+                                        <div className="notif-empty">
+                                            <Bell size={32} />
+                                            <p>No new notifications</p>
+                                        </div>
+                                    ) : (
+                                        notifications.map(notif => (
+                                            <div key={notif._id} className="notif-card">
+                                                <div className="notif-card-info">
+                                                    <strong>{notif.userName}</strong>
+                                                    <p><Clock size={12} /> {notif.serviceName}</p>
+                                                    <p className="notif-time">{notif.bookingTime}</p>
+                                                </div>
+                                                {rejectingNotifId === notif._id ? (
+                                                    <div className="notif-reject-form">
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Reason for rejection..."
+                                                            value={rejectNotifReason}
+                                                            onChange={(e) => setRejectNotifReason(e.target.value)}
+                                                        />
+                                                        <div className="notif-reject-actions">
+                                                            <button className="notif-confirm-reject" onClick={() => handleRejectNotif(notif._id)}>Submit</button>
+                                                            <button className="notif-cancel-reject" onClick={() => { setRejectingNotifId(null); setRejectNotifReason(''); }}>Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="notif-card-actions">
+                                                        <button className="notif-accept-btn" onClick={() => handleAcceptNotif(notif._id)}>
+                                                            <CheckCircle2 size={14} /> Accept
+                                                        </button>
+                                                        <button className="notif-reject-btn" onClick={() => setRejectingNotifId(notif._id)}>
+                                                            <XCircle size={14} /> Reject
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
                 <AnimatePresence>
                     {notification && (
                         <motion.div

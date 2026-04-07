@@ -88,24 +88,57 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
     const fetchSlots = async () => {
         setLoading(true);
         setError('');
+        
+        const parseTime = (timeStr) => {
+            const [time, period] = timeStr.split(' ');
+            let [hours, mins] = time.split(':').map(Number);
+            if (period === 'PM' && hours < 12) hours += 12;
+            if (period === 'AM' && hours === 12) hours = 0;
+            return { hours, mins };
+        };
+
+        const now = new Date();
+        const isToday = selectedDate === now.toISOString().split('T')[0];
+        const currentHour = now.getHours();
+        const currentMin = now.getMinutes();
+
         try {
             const res = await api.get(`/bookings/slots/${salon._id}/${selectedDate}`);
             if (res.data.success && res.data.slots.length > 0) {
-                setAvailableSlots(res.data.slots);
+                const filtered = res.data.slots.map(slot => {
+                    const { hours, mins } = parseTime(slot.time);
+                    let available = slot.available;
+                    if (isToday && (hours < currentHour || (hours === currentHour && mins <= currentMin))) {
+                        available = false;
+                    }
+                    return { ...slot, available };
+                });
+                setAvailableSlots(filtered);
             } else {
                 throw new Error('No slots from API');
             }
         } catch (err) {
             console.error('Error fetching slots:', err);
-            // Fallback slots for demo
-            setAvailableSlots([
-                { time: '09:00 AM', available: true },
-                { time: '10:00 AM', available: true },
-                { time: '11:00 AM', available: false },
-                { time: '12:00 PM', available: true },
-                { time: '02:00 PM', available: true },
-                { time: '04:00 PM', available: true }
-            ]);
+            // Fallback slots for demo with real-time filtering
+            const slots = [
+                { time: '09:00 AM' }, { time: '09:30 AM' }, { time: '10:00 AM' }, { time: '10:30 AM' },
+                { time: '11:00 AM' }, { time: '11:30 AM' }, { time: '12:00 PM' }, { time: '12:30 PM' },
+                { time: '01:00 PM' }, { time: '01:30 PM' }, { time: '02:00 PM' }, { time: '02:30 PM' },
+                { time: '03:00 PM' }, { time: '03:30 PM' }, { time: '04:00 PM' }, { time: '04:30 PM' },
+                { time: '05:00 PM' }, { time: '05:30 PM' }, { time: '06:00 PM' }, { time: '06:30 PM' },
+                { time: '07:00 PM' }, { time: '07:30 PM' }, { time: '08:00 PM' }, { time: '08:30 PM' }
+            ].map(slot => {
+                const { hours, mins } = parseTime(slot.time);
+                let available = true;
+                if (isToday && (hours < currentHour || (hours === currentHour && mins <= currentMin))) {
+                    available = false;
+                }
+                if (available && ['10:00 AM', '12:00 PM', '04:00 PM', '06:30 PM'].includes(slot.time)) {
+                    available = false;
+                }
+                return { ...slot, available };
+            });
+            setAvailableSlots(slots);
         } finally {
             setLoading(false);
         }

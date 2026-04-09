@@ -17,6 +17,7 @@ import PartnerConnect from './pages/PartnerConnect';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 
+
 import Dashboard from './pages/Dashboard';
 import SalonDetails from './pages/SalonDetails';
 import Cart from './pages/Cart';

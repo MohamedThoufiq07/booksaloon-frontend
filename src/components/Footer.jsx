@@ -117,7 +117,7 @@ const Footer = () => {
             </div>
 
             <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} BookSaloonz. All rights reserved. | Final Year Project</p>
+                <p>&copy; {new Date().getFullYear()} BookSaloonz. All rights reserved.</p>
             </div>
         </footer>
     );

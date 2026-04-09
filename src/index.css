@@ -28,6 +28,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+
 body {
     min-height: 100vh;
     overflow-x: hidden;
@@ -148,3 +149,38 @@ a {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
+
+/* Global Responsiveness Safety Nets */
+@media (max-width: 768px) {
+    .page-section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    input, 
+    select, 
+    textarea, 
+    button {
+        font-size: 16px !important; /* Prevent iOS zoom on focus */
+    }
+
+    .glass-effect {
+        backdrop-filter: blur(8px) !important;
+    }
+}
+
+/* Force elements to respect container boundaries */
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.w-full {
+    width: 100% !important;
+}
+
+.mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

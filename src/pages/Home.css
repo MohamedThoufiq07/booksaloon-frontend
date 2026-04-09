@@ -536,7 +536,7 @@
 /* FAQ */
 .faq-section {
     padding: var(--section-gap) var(--container-padding);
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -587,7 +587,7 @@ details[open] .faq-arrow {
 }
 
 .newsletter-card {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: clamp(40px, 8vw, 80px) var(--inner-padding);
     border-radius: clamp(24px, 5vw, 40px);
@@ -609,9 +609,10 @@ details[open] .faq-arrow {
 
 .newsletter-form {
     display: flex;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
     gap: 12px;
+    align-items: stretch;
 }
 
 .newsletter-form input {
@@ -625,7 +626,12 @@ details[open] .faq-arrow {
 }
 
 .newsletter-form button {
-    padding: 0 30px;
+    padding: 0 40px;
+    white-space: nowrap;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 1024px) {
@@ -664,17 +670,28 @@ details[open] .faq-arrow {
     .newsletter-form {
         flex-direction: column;
         max-width: 100%;
+        gap: 16px;
+    }
+
+    .newsletter-form input {
+        width: 100%;
+        text-align: center;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+        height: 56px;
     }
 
     .newsletter-card h2 {
-        font-size: clamp(1.8rem, 8vw, 2.5rem);
+        font-size: clamp(2rem, 8vw, 3rem);
     }
 
     .newsletter-card p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     .section-title {
-        font-size: 2.2rem;
+        font-size: clamp(2.2rem, 8vw, 2.8rem);
     }
-}
+}

@@ -15,8 +15,8 @@
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1.2fr 1.5fr;
-    gap: 60px;
+    grid-template-columns: 1.8fr 1fr 1.2fr 1.5fr;
+    gap: 40px;
 }
 
 .footer-section h3 {
@@ -167,6 +167,7 @@
     padding: 8px;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
 }
 
 .newsletter-box input {
@@ -209,22 +210,36 @@
 
 /* Responsive */
 @media (max-width: 1200px) {
+    .footer-top {
+        padding: 0 3rem 60px;
+    }
+
     .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px 40px;
     }
 }
 
 @media (max-width: 768px) {
     .footer-top {
-        padding: 0 2rem 40px;
+        padding: 0 2rem 50px;
     }
 
     .footer-grid {
         grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-logo, .social-links, .footer-links a, .contact-details li, .newsletter-box {
+        justify-content: center;
+    }
+
+    .contact-details li {
+        text-align: left;
     }
 
     .footer-bottom {
-        padding: 25px 2rem;
+        padding: 30px 2rem;
     }
 }

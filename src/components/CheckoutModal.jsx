@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, CreditCard, ShoppingBag, Loader2, CheckCircle2 } from 'lucide-react';
 import api from '../utils/api';
+import PaymentButton from './PaymentButton';
 import './CheckoutModal.css';
 
 const CheckoutModal = ({ isOpen, onClose, product, user }) => {
@@ -190,13 +191,40 @@ const CheckoutModal = ({ isOpen, onClose, product, user }) => {
 
                                     {error && <p className="error-text text-center mt-4 text-red-400 text-sm">{error}</p>}
 
-                                    <button
+                                    <PaymentButton 
+                                        amount={product.price}
+                                        type="product"
                                         className="btn-primary w-full mt-10"
-                                        disabled={loading}
-                                        onClick={handleCheckout}
-                                    >
-                                        {loading ? <Loader2 className="spin" size={20} /> : 'PAY NOW'}
-                                    </button>
+                                        onBefore={async () => {
+                                            try {
+                                                const res = await api.post('/orders', {
+                                                    items: [{
+                                                        product: product._id || product.id,
+                                                        name: product.name,
+                                                        price: product.price,
+                                                        quantity: 1
+                                                    }],
+                                                    totalAmount: product.price,
+                                                    shippingAddress: address
+                                                });
+                                                return res.data.success ? res.data.order._id : null;
+                                            } catch (err) {
+                                                setError(err.response?.data?.message || 'Order creation failed');
+                                                return null;
+                                            }
+                                        }}
+                                        onSuccess={() => {
+                                            setSuccess(true);
+                                            setStep(3);
+                                        }}
+                                        onFailure={(err) => setError(err.message || "Payment failed")}
+                                        prefill={{
+                                            name: user?.name,
+                                            email: user?.email,
+                                            contact: user?.phone
+                                        }}
+                                        label="PAY NOW"
+                                    />
                                     <button className="btn-secondary w-full mt-4" onClick={() => setStep(1)}>BACK</button>
                                 </div>
                             )}

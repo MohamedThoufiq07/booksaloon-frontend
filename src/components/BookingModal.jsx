@@ -8,6 +8,7 @@ import {
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PaymentButton from './PaymentButton';
 import './BookingModal.css';
 
 const BookingModal = ({ isOpen, onClose, salon }) => {
@@ -453,14 +454,46 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
 
                                         <div className="step-footer mt-6">
                                             <button type="button" className="btn-secondary" onClick={prevStep}>BACK</button>
-                                            <button
-                                                type="button"
-                                                className="btn-primary"
-                                                disabled={loading}
-                                                onClick={handleBooking}
-                                            >
-                                                {loading ? <Loader2 size={18} className="spin" /> : 'CONFIRM & PAY'}
-                                            </button>
+                                            
+                                            {paymentMethod === 'razorpay' ? (
+                                                <PaymentButton 
+                                                    amount={selectedService?.price}
+                                                    type="booking"
+                                                    onBefore={async () => {
+                                                        try {
+                                                            const res = await api.post('/bookings', {
+                                                                salonId: salon._id,
+                                                                service: selectedService.name,
+                                                                serviceId: selectedService._id,
+                                                                price: selectedService.price,
+                                                                date: selectedDate,
+                                                                time: selectedSlot
+                                                            });
+                                                            return res.data.success ? res.data.booking._id : null;
+                                                        } catch (err) {
+                                                            setError(err.response?.data?.message || "Booking failed");
+                                                            return null;
+                                                        }
+                                                    }}
+                                                    onSuccess={() => setBookingSuccess(true)}
+                                                    onFailure={(err) => setError(err.message || "Payment failed")}
+                                                    prefill={{
+                                                        name: currentUser?.name,
+                                                        email: currentUser?.email,
+                                                        contact: currentUser?.phone
+                                                    }}
+                                                    label="CONFIRM & PAY"
+                                                />
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    className="btn-primary"
+                                                    disabled={loading}
+                                                    onClick={handleBooking}
+                                                >
+                                                    {loading ? <Loader2 size={18} className="spin" /> : 'CONFIRM BOOKING'}
+                                                </button>
+                                            )}
                                         </div>
                                     </motion.div>
                                 )}

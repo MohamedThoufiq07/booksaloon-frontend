@@ -131,8 +131,36 @@ export const AuthProvider = ({ children }) => {
         setUser(prev => ({ ...prev, ...userData }));
     };
 
+    const forgotPassword = async (email, accountType) => {
+        try {
+            const res = await fetch(`${API_URL}/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, accountType })
+            });
+            const data = await res.json();
+            return { success: data.success, message: data.message };
+        } catch (err) {
+            return { success: false, message: 'Server error. Please try again.' };
+        }
+    };
+
+    const resetPassword = async (email, otp, newPassword, accountType) => {
+        try {
+            const res = await fetch(`${API_URL}/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, otp, newPassword, accountType })
+            });
+            const data = await res.json();
+            return { success: data.success, message: data.message };
+        } catch (err) {
+            return { success: false, message: 'Server error. Please try again.' };
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isLoggedIn, loading, login, signup, logout, partnerLogin, partnerSignup, updateMe }}>
+        <AuthContext.Provider value={{ user, isLoggedIn, loading, login, signup, logout, partnerLogin, partnerSignup, updateMe, forgotPassword, resetPassword }}>
             {children}
         </AuthContext.Provider>
     );

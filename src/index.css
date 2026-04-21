@@ -14,10 +14,14 @@
     line-height: 1.6;
     font-weight: 400;
 
-    /* Responsive Spacing Variables */
-    --section-gap: clamp(60px, 10vh, 120px);
+    /* Fluid Typography and Spacing */
+    --section-gap: clamp(40px, 10vh, 120px);
     --container-padding: clamp(1rem, 5vw, 6rem);
-    --inner-padding: clamp(1.5rem, 4vw, 3rem);
+    --inner-padding: clamp(1.25rem, 4vw, 3rem);
+    --fluid-h1: clamp(2rem, 8vw, 4.5rem);
+    --fluid-h2: clamp(1.75rem, 6vw, 3rem);
+    --fluid-h3: clamp(1.4rem, 4vw, 2.2rem);
+    --fluid-body: clamp(0.95rem, 1.2vw, 1.1rem);
 }
 
 * {
@@ -44,6 +48,7 @@ body {
 /* Base Responsive Typography */
 html {
     font-size: 16px;
+    scroll-padding-top: 80px;
 }
 
 @media (max-width: 1024px) {

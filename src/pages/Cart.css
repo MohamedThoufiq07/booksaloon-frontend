@@ -315,9 +315,18 @@
     border-radius: 50%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     .main-cart-grid {
         grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .cart-sidebar {
+        order: 2;
+    }
+    
+    .cart-main-section {
+        order: 1;
     }
 }
 

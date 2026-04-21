@@ -12,9 +12,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: clamp(20px, 6vw, 40px);
-    gap: clamp(8px, 2vw, 16px);
-    flex-wrap: wrap;
+    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%;
 }
 
 .stepper-item {
@@ -181,8 +184,14 @@
 
 .delivery-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+}
+
+@media (max-width: 640px) {
+    .delivery-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .delivery-card {
@@ -319,14 +328,17 @@
     .main-cart-grid {
         grid-template-columns: 1fr;
         gap: 32px;
+        width: 100%;
     }
     
     .cart-sidebar {
         order: 2;
+        width: 100%;
     }
     
     .cart-main-section {
         order: 1;
+        width: 100%;
     }
 }
 

@@ -14,16 +14,16 @@
 /* ===== Full-Page Container ===== */
 .auth-master-container {
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-family: 'Outfit', sans-serif;
-    padding: 2rem 1rem;
-    /* Same background as home page */
-    background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(2, 6, 23, 0.4)),
+    padding: clamp(2rem, 5vh, 4rem) 1rem;
+    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(2, 6, 23, 0.6)),
         url('../assets/salon_about.png') no-repeat center center fixed;
     background-size: cover;
 }
@@ -56,22 +56,19 @@
 
 /* ===== Auth Card — Glass Morphism Matching Home ===== */
 .auth-card {
-    width: 520px;
-    max-width: 95vw;
-    max-height: 94vh;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
+    border-radius: 28px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: cardSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 10;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    animation: cardSlideIn 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes cardSlideIn {
@@ -490,19 +487,19 @@
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .auth-master-container {
-        padding: 1rem;
-        align-items: flex-start;
-        padding-top: 2rem;
+        padding: 0.5rem;
+        align-items: center; /* Center vertically on mobile */
     }
 
     .auth-card {
         width: 100%;
         max-height: 100vh;
         border-radius: 20px;
+        box-shadow: none;
     }
 
     .auth-content-panel {
-        padding: 1.5rem 1.2rem;
+        padding: 1.5rem 1.25rem;
     }
 
     .form-row {
@@ -511,7 +508,6 @@
 
     .main-toggle-btn {
         font-size: 0.8rem;
-        padding: 8px;
     }
 }
 

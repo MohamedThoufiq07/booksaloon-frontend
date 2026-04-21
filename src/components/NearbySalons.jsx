@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
     MapContainer, TileLayer, Marker,
     Popup, Circle, useMap
-} from "react-leafet";
+} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import api from "../utils/api";
@@ -242,13 +242,6 @@ const NearbySalons = () => {
                         <p style={{ color: 'var(--text-muted)' }}>Try expanding your search or checking another location.</p>
                     </div>
                 )}
-            </div>
-        </div>
-    );
-};
-
-export default NearbySalons;
-        )}
             </div>
         </div>
     );

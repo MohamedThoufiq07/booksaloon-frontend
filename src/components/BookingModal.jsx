@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     X, Check, CreditCard, Calendar, Clock as ClockIcon,
     Scissors, ChevronRight, ChevronLeft, Loader2, Sparkles,
-    AlertCircle
+    AlertCircle, Sunrise, Sun, Moon
 } from 'lucide-react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
@@ -155,7 +155,14 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
         setLoading(true);
         setError('');
         try {
-            // 1. Create Booking (unpaid initially)
+            // 1. Check Payment Availability First
+            if (paymentMethod === 'razorpay') {
+                setError('Razorpay & UPI payments are currently undergoing maintenance. Please select "Pay at Salon" to book your appointment.');
+                setLoading(false);
+                return;
+            }
+
+            // 2. Create Booking (Only if valid payment option is selected)
             const bookingRes = await api.post('/bookings', {
                 salonId: salon._id,
                 service: selectedService.name,
@@ -171,69 +178,8 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
 
             const bookingId = bookingRes.data.booking._id;
 
-            // 2. Handle Payment
-            if (paymentMethod === 'razorpay') {
-                // Create Razorpay Order
-                const orderRes = await api.post('/payments/order', {
-                    amount: selectedService.price,
-                    bookingId: bookingId
-                });
-
-                if (!orderRes.data.success) {
-                    throw new Error('Failed to initiate payment gateway');
-                }
-
-                const { order } = orderRes.data;
-
-                const options = {
-                    key: "rzp_test_placeholder", // This should ideally come from backend or env
-                    amount: order.amount,
-                    currency: order.currency,
-                    name: "BookSaloonz",
-                    description: `Booking for ${selectedService.name}`,
-                    order_id: order.id,
-                    handler: async (response) => {
-                        try {
-                            setLoading(true);
-                            // Verify payment
-                            const verifyRes = await api.post('/payments/verify', {
-                                ...response,
-                                bookingId
-                            });
-
-                            if (verifyRes.data.success) {
-                                setBookingSuccess(true);
-                            } else {
-                                setError('Payment verification failed. Please contact support.');
-                            }
-                        } catch (err) {
-                            setError('Payment verification error');
-                        } finally {
-                            setLoading(false);
-                        }
-                    },
-                    prefill: {
-                        name: currentUser?.name || '',
-                        email: currentUser?.email || '',
-                        contact: currentUser?.phone || ''
-                    },
-                    theme: {
-                        color: "#2dd4bf"
-                    },
-                    modal: {
-                        ondismiss: () => {
-                            setLoading(false);
-                            setError('Payment cancelled by user');
-                        }
-                    }
-                };
-
-                const rzp = new window.Razorpay(options);
-                rzp.open();
-            } else {
-                // If "Pay at Salon", we are done as booking is already created
-                setBookingSuccess(true);
-            }
+            // 3. Handle Success (Razorpay logic was moved to top check)
+            setBookingSuccess(true);
         } catch (err) {
             console.error('Booking error:', err);
             setError(err.response?.data?.message || err.message || 'Something went wrong. Please try again.');
@@ -357,13 +303,14 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
                                         exit={{ opacity: 0, x: -20 }}
                                         className="step-container"
                                     >
-                                        <div className="date-picker-modal">
+                                        <div className="date-picker-modal-wrapper">
+                                            <Calendar size={18} className="calendar-icon-styled" />
                                             <input
                                                 type="date"
                                                 min={new Date().toISOString().split('T')[0]}
                                                 value={selectedDate}
                                                 onChange={(e) => setSelectedDate(e.target.value)}
-                                                className="glass-input"
+                                                className="glass-input-styled"
                                             />
                                         </div>
 
@@ -373,26 +320,51 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
                                                 <span>Finding available slots...</span>
                                             </div>
                                         ) : (
-                                            <div className="slots-grid-modal">
+                                            <div className="slots-container-enhanced">
                                                 {availableSlots.length > 0 ? (
-                                                    availableSlots.map(slot => (
-                                                        <button
-                                                            key={slot.time}
-                                                            type="button"
-                                                            className={`slot-chip ${selectedSlot === slot.time ? 'active' : ''} ${!slot.available ? 'disabled' : ''}`}
-                                                            disabled={!slot.available}
-                                                            onClick={() => setSelectedSlot(slot.time)}
-                                                        >
-                                                            {slot.time}
-                                                        </button>
-                                                    ))
+                                                    <>
+                                                        {/* Categorized Slots */}
+                                                        {[
+                                                            { label: 'Morning', icon: <Sunrise size={16} />, filter: (t) => t.includes('AM') && !t.startsWith('12') },
+                                                            { label: 'Afternoon', icon: <Sun size={16} />, filter: (t) => (t.includes('PM') && (t.startsWith('12') || t.startsWith('01') || t.startsWith('02') || t.startsWith('03'))) },
+                                                            { label: 'Evening', icon: <Moon size={16} />, filter: (t) => (t.includes('PM') && !['12', '01', '02', '03'].some(h => t.startsWith(h))) }
+                                                        ].map(group => {
+                                                            const groupSlots = availableSlots.filter(s => group.filter(s.time));
+                                                            if (groupSlots.length === 0) return null;
+                                                            
+                                                            return (
+                                                                <div key={group.label} className="slot-group">
+                                                                    <div className="group-header">
+                                                                        {group.icon}
+                                                                        <span>{group.label}</span>
+                                                                    </div>
+                                                                    <div className="slots-grid-enhanced">
+                                                                        {groupSlots.map(slot => (
+                                                                            <button
+                                                                                key={slot.time}
+                                                                                type="button"
+                                                                                className={`slot-chip-enhanced ${selectedSlot === slot.time ? 'active' : ''} ${!slot.available ? 'disabled' : ''}`}
+                                                                                disabled={!slot.available}
+                                                                                onClick={() => setSelectedSlot(slot.time)}
+                                                                            >
+                                                                                {slot.time.replace(' ', '\u00A0')}
+                                                                            </button>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </>
                                                 ) : (
-                                                    <p className="no-slots">No slots available for this date.</p>
+                                                    <div className="no-slots-enhanced">
+                                                        <AlertCircle size={40} className="mb-4 opacity-20" />
+                                                        <p>No available slots for this date.</p>
+                                                    </div>
                                                 )}
                                             </div>
                                         )}
 
-                                        <div className="step-footer">
+                                        <div className="step-footer mt-auto">
                                             <button type="button" className="btn-secondary" onClick={prevStep}>BACK</button>
                                             <button
                                                 type="button"
@@ -400,7 +372,7 @@ const BookingModal = ({ isOpen, onClose, salon }) => {
                                                 disabled={!selectedSlot}
                                                 onClick={nextStep}
                                             >
-                                                NEXT
+                                                NEXT STEP <ChevronRight size={18} />
                                             </button>
                                         </div>
                                     </motion.div>

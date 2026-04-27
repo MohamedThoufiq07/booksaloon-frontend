@@ -19,10 +19,18 @@ const CheckoutModal = ({ isOpen, onClose, product, user }) => {
     });
 
     const handleCheckout = async () => {
+        // 1. Check Payment Availability First
+        // Since we only have Razorpay (which is disabled) and no other option for store yet,
+        // we'll show the message and stop here.
+        setError('Online payments (Razorpay/UPI) are currently unavailable. We are working to restore this feature soon.');
+        return;
+
+        /* Original logic commented out to prevent execution */
+        /*
         setLoading(true);
         setError('');
         try {
-            // 1. Create Order
+            // 2. Create Order
             const res = await api.post('/orders', {
                 items: [{
                     product: product._id || product.id,
@@ -35,50 +43,16 @@ const CheckoutModal = ({ isOpen, onClose, product, user }) => {
             });
 
             if (res.data.success) {
-                const { order, rzpOrder } = res.data;
-
-                // 2. Open Razorpay
-                const options = {
-                    key: "rzp_test_placeholder",
-                    amount: rzpOrder.amount,
-                    currency: rzpOrder.currency,
-                    name: "BookSaloonz Store",
-                    description: `Purchase of ${product.name}`,
-                    order_id: rzpOrder.id,
-                    handler: async (response) => {
-                        try {
-                            setLoading(true);
-                            const verifyRes = await api.post('/orders/verify', {
-                                ...response,
-                                orderId: order._id
-                            });
-
-                            if (verifyRes.data.success) {
-                                setSuccess(true);
-                                setStep(3);
-                            }
-                        } catch (err) {
-                            setError('Payment verification failed');
-                        } finally {
-                            setLoading(false);
-                        }
-                    },
-                    prefill: {
-                        name: user?.name,
-                        email: user?.email,
-                        contact: user?.phone
-                    },
-                    theme: { color: "#2dd4bf" }
-                };
-
-                const rzp = new window.Razorpay(options);
-                rzp.open();
+                // Razorpay/UPI is currently disabled
+                setLoading(false);
+                return;
             }
         } catch (err) {
             setError(err.response?.data?.message || 'Checkout failed. Please try again.');
         } finally {
             setLoading(false);
         }
+        */
     };
 
     if (!isOpen) return null;

@@ -144,47 +144,140 @@
     color: var(--primary);
 }
 
-/* Slots Grid */
-.slots-grid-modal {
+/* Enhanced Date Picker Section */
+.date-picker-modal-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.date-picker-modal-wrapper:focus-within {
+    border-color: var(--primary);
+    background: rgba(45, 212, 191, 0.05);
+    box-shadow: 0 0 15px rgba(45, 212, 191, 0.1);
+}
+
+.calendar-icon-styled {
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+.glass-input-styled {
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    padding: 12px 0 !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    width: 100%;
+    outline: none !important;
+    cursor: pointer;
+}
+
+/* Enhanced Slots Layout */
+.slots-container-enhanced {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 10px 0;
+}
+
+.slots-container-enhanced::-webkit-scrollbar {
+    width: 4px;
+}
+
+.slots-container-enhanced::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.slot-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px;
+}
+
+.group-header span {
+    color: #fff;
+    opacity: 0.7;
+}
+
+.slots-grid-enhanced {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-    margin-top: 24px;
 }
 
-.slot-chip {
-    padding: 10px 0;
+.slot-chip-enhanced {
+    padding: 12px 4px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    border-radius: 14px;
     color: #fff;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
 }
 
-.slot-chip:hover:not(.disabled) {
-    background: rgba(255, 255, 255, 0.1);
+.slot-chip-enhanced:hover:not(.disabled) {
+    background: rgba(45, 212, 191, 0.05);
+    border-color: rgba(45, 212, 191, 0.3);
+    transform: translateY(-2px);
 }
 
-.slot-chip.active {
+.slot-chip-enhanced.active {
     background: var(--primary);
     color: #000;
-    font-weight: 850;
     border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(45, 212, 191, 0.4);
 }
 
-.slot-chip.disabled {
-    opacity: 0.25;
+.slot-chip-enhanced.disabled {
+    opacity: 0.15;
     cursor: not-allowed;
-    background: rgba(239, 68, 68, 0.05); /* Soft red background */
-    color: #fca5a5; /* Light red text */
-    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(255, 255, 255, 0.02);
+    border-color: transparent;
     text-decoration: line-through;
-    text-decoration-thickness: 2px;
+}
+
+.no-slots-enhanced {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .slots-grid-enhanced {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* Footer */
